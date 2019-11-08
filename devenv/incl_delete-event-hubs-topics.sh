@@ -1,5 +1,5 @@
 # please source, do not execute
-# assumption: incl_initvars.sh was sourced
+# assumption: incl_init-vars.sh was sourced
 
 for t in $ehkTopicsOfTypeA
 do

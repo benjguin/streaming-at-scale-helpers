@@ -1,32 +1,32 @@
-# this script is meant to be executed thru source. e.g. source myscript.sh, rather than ./myscript.sh
+# this script is meant to be executed thru source. e.g. source my-script.sh, rather than ./my-script.sh
 
-# Folder where user specific config is saved/read
-localConfigFolderPath="$HOME/.ApacheFlinkOnAzure"
+# Folder where user specific config is saved/read, under $HOME
+homeConfigFolder=".sash"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $DIR/incl_helpers.sh
 
 # Get default values from config if it exists
-if [[ -f ${localConfigFolderPath}/config ]]
+if [[ -f $HOME/$homeConfigFolder/config ]]
 then
-    source ${localConfigFolderPath}/config
-    echo "Configuration is in ${localConfigFolderPath} folder. Feel free to update or remove it (remove to reset to default value and new ssh keys)."
+    source $HOME/$homeConfigFolder/config
+    echo "Configuration is in $HOME/$homeConfigFolder folder. Feel free to update or remove it (remove to reset to default value and new ssh keys)."
 fi
 
 # ssh key pair
 if [[ -z "$sshPublicKeyPath" ]] || [[ -z "$sshPrivateKeyPath" ]]
 then
-    if [[ -f ${localConfigFolderPath}/sshkey ]] && [[ -f ${localConfigFolderPath}/sshkey.pub ]]
+    if [[ -f $HOME/$homeConfigFolder/sshkey ]] && [[ -f $HOME/$homeConfigFolder/sshkey.pub ]]
     then
-        echo "using ssh keys (${localConfigFolderPath}/sshkey and ${localConfigFolderPath}/sshkey.pub)"
+        echo "using ssh keys ($HOME/$homeConfigFolder/sshkey and $HOME/$homeConfigFolder/sshkey.pub)"
     else
-        echo "generating ssh keypair (${localConfigFolderPath}/sshkey)"
-        mkdir -p ${localConfigFolderPath}
-        ssh-keygen -q -N "" -t rsa -f ${localConfigFolderPath}/sshkey
+        echo "generating ssh keypair ($HOME/$homeConfigFolder/sshkey)"
+        mkdir -p $HOME/${homeConfigFolder}
+        ssh-keygen -q -N "" -t rsa -f $HOME/$homeConfigFolder/sshkey
     fi
     # set ssh private and public key path variables
-    sshPublicKeyPath=${localConfigFolderPath}/sshkey.pub
-    sshPrivateKeyPath=${localConfigFolderPath}/sshkey
+    sshPublicKeyPath=$HOME/$homeConfigFolder/sshkey.pub
+    sshPrivateKeyPath=$HOME/$homeConfigFolder/sshkey
 else
     echo "using private and public key paths $sshPrivateKeyPath and $sshPublicKeyPath"
 fi
@@ -51,7 +51,7 @@ fi
 # location is the Azure region where deployment will happen
 if [[ -z "$location" ]]
 then
-    location="westus"
+    location="westus2"
     echo "using default location '$location'"
 else
     echo "using location '$location'"
@@ -110,9 +110,9 @@ fi
 echo "skipAzLogin=$skipAzLogin"
 
 # Save configuration
-mkdir -p ${localConfigFolderPath}
-mv ${localConfigFolderPath}/config ${localConfigFolderPath}/config.old 2> /dev/null || true
-cat > ${localConfigFolderPath}/config << EOF
+mkdir -p $HOME/homeConfigFolder
+mv $HOME/homeConfigFolder/config $HOME/$homeConfigFolder/config.old 2> /dev/null || true
+cat > $HOME/$homeConfigFolder/config << EOF
 azureSubscription="$azureSubscription"
 location="$location"
 username="$username"

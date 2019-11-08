@@ -1,5 +1,13 @@
 # Development environment
 
+Abbreviations used here:
+| abbreviation | description |
+|--------------|-------------|
+| UL | Unix, Local |
+| UR | Unix, Remote |
+| WL | Windows, Local |
+| sash | Streaming At Scale Helpers |
+
 Three operating systems may be involved here: 
 - [WL] Windows Local client. I use Windows 10
 - [UL] Unix Local Client (I use Windows subsystem for Linux / WSL, Ubuntu)
@@ -21,3 +29,24 @@ Reasons to work from [UR] or [UL] include:
 Here is a list of scripts and what you can use them for:
 | script | run from | modifies | description |
 |--------|----------|----------|-------------|
+| `init-config.sh` | [UL] | [UL] | initializes a set of variables from which all others will be derived. Please update default values by going to `$HOME/$homeConfigFolder/config |
+| `setup-dev-vm` | [UL] | [UR] | creates [UR] from [UL] |
+| `start-dev-vm.sh` | [UL] | [UR] | start the development VM |
+| `ssh-dev-vm.sh` | [UL] | | connect to the development VM |
+| `stop-dev-vm.sh` | [UL] | [UR] | stop the development VM |
+| `config-help-x2go.sh` | [UL] | [WL] | Copies your keys to the configured Windows folder so that you can connect to [UR] thru X2Go |
+| `setup-event-hubs-kafka.sh` | [UL] or [UR] | | creates an EventHubs namespace with topics (event hubs) |
+| `reset-eventhubskafka-topics.sh` | [UL] or [UR] | | drop/recreates the topics to empty them |
+| `delete-event-hubs-kafka.sh` | [UL] or [UR] | | delete the EventHubs namespace |
+| `setup-hdInsight-cluster.sh` | [UL] or [UR] | | creates an HDInsight cluster in the same VNet as the development VM |
+| `delete-hdInsight-cluster.sh` | [UL] or [UR] | | delete the HDInsight cluster |
+| `run-streaming-at-scale-workload.sh` | [UL] or [UR] | | runs selected streaming at scale scenarios |
+| `show-streaming-at-scale-aks-web-ui.sh` | [UL] or [UR] | | when a streaming at scale scenario with Azure Kubernetes Services was started, show the Web UI. If [UR] is used, you want to have a UI available as thru an X2Go session |
+| `delete-streaming-at-scale-workload.sh` | [UL] or [UR] | | delete the resource group that was created for the streaming at scale scenario |
+| `delete-devenv.sh` | [UL] | [UR] | deletes the resource group where the development VM was created |
+
+incl_* scripts are meant to be sourced. They are mainly used from the other scripts.
+You may still want to use them from you current session. 
+
+e.g. `source ./incl_init-vars.sh` would provide you with environment variables inside your session.
+

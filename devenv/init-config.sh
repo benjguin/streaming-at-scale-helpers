@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $DIR/incl_initvars.sh
+source $DIR/incl_init-vars.sh
 
-echo "configuration is in folder $localConfigFolderPath"
-ls -als $localConfigFolderPath
+echo "configuration is in folder $HOME/$homeConfigFolder"
+ls -als $HOME/$homeConfigFolder
 
-echo "$localConfigFolderPath/config:" 
-cat $localConfigFolderPath/config
+echo "$HOME/$homeConfigFolder/config:" 
+cat $HOME/$homeConfigFolder/config

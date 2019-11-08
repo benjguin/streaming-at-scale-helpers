@@ -1,10 +1,8 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $DIR/incl_initvars.sh
-source $DIR/incl_azlogin.sh
-
-pathToPop="`pwd`"
+source $DIR/incl_init-vars.sh
+source $DIR/incl_az-login.sh
 
 cd ~/code/streaming-at-scale/eventhubskafka-flink-eventhubskafka \
     || (echo "you first need to clone the repo and checkout the right branch" && exit 1)
@@ -58,4 +56,3 @@ else
     echo unknown option $option
 fi
 
-cd $pathToPop

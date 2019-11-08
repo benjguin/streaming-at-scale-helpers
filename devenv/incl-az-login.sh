@@ -1,4 +1,5 @@
-# this bash script is meant to be sourced (source ./incl_azlogin.sh rather than ./incl_azlogin.sh)
+# this bash script is meant to be sourced (source ./incl_az-login.sh rather than ./incl_az-login.sh)
+# prerequisite: source incl_init-vars.sh prior to this script
 
 if [[ ! "$skipAzLogin" == "true" ]]
 then

@@ -4,7 +4,7 @@ echo ehknsName=${ehknsName}
 echo topic=$topic
 
 propFile=/tmp/ehkproducer.properties
-source incl_generatePropertiesFile.sh
+source incl_generate-properties-file.sh
 
 kafka-console-producer \
     --topic $topic \

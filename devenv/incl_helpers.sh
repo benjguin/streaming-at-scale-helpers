@@ -9,6 +9,11 @@ function newPassword {
 	echo $password
 }
 
+function copyHomeConfigToVm {
+	vmFqdn=$1
+	scp -r -o StrictHostKeyChecking=no -i $sshPrivateKeyPath $homeConfigFolder ${username}@${vmFqdn}:~/$homeConfigFolder
+}
+
 function copySshKeysToVm {
 	vmFqdn=$1
 	scp -o StrictHostKeyChecking=no -i $sshPrivateKeyPath $sshPublicKeyPath ${username}@${vmFqdn}:~/.ssh

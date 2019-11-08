@@ -4,8 +4,8 @@
 # setup.sh must have successfully run before calling this piece of code
 #
 # please first source the following scripts before:
-# - incl_initvars.sh
-# - incl_azlogin.sh
+# - incl_init-vars.sh
+# - incl_az-login.sh
 
 echo "getting credentials and other variables from the environment"
 if [[ -z "$credentialsAndOtherVarsRetrieved" ]]

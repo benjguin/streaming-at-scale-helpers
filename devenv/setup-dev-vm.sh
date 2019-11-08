@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $DIR/incl_initvars.sh
-source $DIR/incl_azlogin.sh
+source $DIR/incl_init-vars.sh
+source $DIR/incl_az-login.sh
 
 # create the resource group
 az group create --name $resourceGroupName --location $location
@@ -18,7 +18,8 @@ echo "creating the dev VM"
 az vm image accept-terms --urn $devVmImageUrn
 az vm create -g $resourceGroupName --name $devVmName --size Standard_DS3_v2 --image $devVmImageUrn --admin-username "$username" --ssh-key-values "$sshPublicKeyPath" --vnet-name $vnetName --subnet default --public-ip-address-allocation dynamic --public-ip-address-dns-name $devVmName
 
-# dev VM: copy the same ssh keys to the VM
+# dev VM: copy the same config and ssh keys to the VM
+copyHomeConfigToVm ${devVmFqdn}
 copySshKeysToVm ${devVmFqdn}
 
 # dev VM: update and install tools (NB: git is already installed)

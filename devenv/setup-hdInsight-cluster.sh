@@ -1,9 +1,9 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $DIR/incl_initvars.sh
-source $DIR/incl_azlogin.sh
-source $DIR/incl_getcredentials.sh
+source $DIR/incl_init-vars.sh
+source $DIR/incl_az-login.sh
+source $DIR/incl_get-credentials.sh
 
 existingVnet=`(az network vnet show -g $resourceGroupName --name $vnetName --query "name" --output tsv 2> /dev/null) || echo "not found"`
 echo $existingVnet
