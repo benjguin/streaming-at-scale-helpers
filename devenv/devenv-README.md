@@ -34,7 +34,7 @@ Here is a list of scripts and what you can use them for:
 | `start-dev-vm.sh` | [UL] | [UR] | start the development VM |
 | `ssh-dev-vm.sh` | [UL] | | connect to the development VM |
 | `stop-dev-vm.sh` | [UL] | [UR] | stop the development VM |
-| `config-help-x2go.sh` | [UL] | [WL] | Copies your keys to the configured Windows folder so that you can connect to [UR] thru X2Go |
+| `config-help-vscode-x2go.sh` | [UL] | [WL] | Copies your keys to the configured Windows folder and helps you configure Visual Studio Code and X2Go so that you can connect to [UR] |
 | `setup-event-hubs-kafka.sh` | [UL] or [UR] | | creates an EventHubs namespace with topics (event hubs) |
 | `reset-eventhubskafka-topics.sh` | [UL] or [UR] | | drop/recreates the topics to empty them |
 | `delete-event-hubs-kafka.sh` | [UL] or [UR] | | delete the EventHubs namespace |
