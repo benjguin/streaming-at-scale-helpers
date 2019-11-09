@@ -24,7 +24,7 @@ copySshKeysToVm ${devVmFqdn}
 
 # dev VM: update and install tools (NB: git is already installed)
 echo "updating the dev VM and installing tools"
-cat > /tmp/dev1.sh << 'EOF'
+cat > /tmp/dev1.sh << EOF
 #!/bin/bash
 # executed as root
 apt-get update -y
@@ -41,7 +41,7 @@ apt-get install -y docker-compose
 # https://stackoverflow.com/questions/50151833/cannot-login-to-docker-account
 apt-get install -y gnupg2 pass
 groupadd docker
-gpasswd -a $USER docker
+gpasswd -a $username docker
 #newgrp docker
 
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -54,8 +54,6 @@ sudo apt-get install -y code
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
-popPath=`pwd`
-
 cd /tmp
 curl -LO https://git.io/get_helm.sh
 chmod 700 get_helm.sh
@@ -64,20 +62,18 @@ chmod 700 get_helm.sh
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
-
-cd $popPath
 EOF
 
-cat > /tmp/dev2.sh << 'EOF'
+cat > /tmp/dev2.sh << EOF
 #!/bin/bash
 # executed as user
-cd $HOME
+cd \$HOME
 mkdir code
 mkdir bin
 
-cd $HOME
+cd \$HOME
 curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+source "\$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install scala 2.12.7
 EOF
 
@@ -88,5 +84,6 @@ rm /tmp/dev2.sh
 ssh -i ${sshPrivateKeyPath} ${username}@${devVmFqdn} sudo -n -u root -s "bash -v /tmp/dev1.sh &> /tmp/dev1.log 2>&1"
 ssh -i ${sshPrivateKeyPath} ${username}@${devVmFqdn} "bash -v /tmp/dev2.sh &> /tmp/dev2.log 2>&1"
 
-echo "You can connect to the dev VM with the following command"
+echo "You can connect to the dev VM with one of the following commands"
 echo "ssh -i $sshPrivateKeyPath ${username}@${devVmFqdn}"
+echo "./ssh-dev-vm.sh"

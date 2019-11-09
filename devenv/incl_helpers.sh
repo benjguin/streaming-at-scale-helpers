@@ -11,7 +11,7 @@ function newPassword {
 
 function copyHomeConfigToVm {
 	vmFqdn=$1
-	scp -r -o StrictHostKeyChecking=no -i $sshPrivateKeyPath $homeConfigFolder ${username}@${vmFqdn}:~/$homeConfigFolder
+	scp -r -o StrictHostKeyChecking=no -i $sshPrivateKeyPath $HOME/$homeConfigFolder ${username}@${vmFqdn}:~/$homeConfigFolder
 }
 
 function copySshKeysToVm {
